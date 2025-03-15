@@ -148,7 +148,7 @@
             justify-content: center;
             align-items: center;"><h1>Class Routine</h1></div>
             <div>
-                <table id="dynamicTable">
+                <table id="dynamicTable-sat" class="dynamicTable">
                     <thead>
                         <tr>
                             <th>Period →</th>
@@ -180,47 +180,28 @@
                     <tbody>
                     </tbody>
                 </table>
-                <table id="routineTable">
+                <table id="routineTable-sat" class="routineTable">
                     <tbody>
-                        <script>
-                            // Create column-wise 2nd and 3rd line duplicate report at the last row
-                            document.write("<tr>");
-                            for (let j = 0; j < 11; j++) {
-                                if(j == 0){
-                                    document.write(`<td class="report-cell" id="colReport${j}">Duplicate <br> Teachers <br> & rooms</td>`);
-                                }else{
-                                    document.write(`<td class="report-cell" id="colReport${j}"></td>`);
-                                }
-                            }
-                            // Extra cell for alignment at last row last column
-                            document.write(`<td class="report-cell" style="display:hidden"></td>`);
-                            document.write("</tr>");
-                        </script>
+                        <tr>
+                            <td class="report-cell" id="colReport-sat-0">Duplicate <br> Teachers <br> & rooms</td>
+                            <td class="report-cell" id="colReport-sat-1"></td>
+                            <td class="report-cell" id="colReport-sat-2"></td>
+                            <td class="report-cell" id="colReport-sat-3"></td>
+                            <td class="report-cell" id="colReport-sat-4"></td>
+                            <td class="report-cell" id="colReport-sat-5"></td>
+                            <td class="report-cell" id="colReport-sat-6"></td>
+                            <td class="report-cell" id="colReport-sat-7"></td>
+                            <td class="report-cell" id="colReport-sat-8"></td>
+                            <td class="report-cell" id="colReport-sat-9"></td>
+                            <td class="report-cell" id="colReport-sat-10"></td>
+                            <td class="report-cell" style="display:hidden"></td>
+                        </tr>
                     </tbody>
                 </table>            
             </div>
-            <div id="popup" class="popup">
-                <h3>Edit Cell</h3>
-                <label>Course Code: <input type="text" id="courseCode"</label>
-        
-                <!-- Teacher Section -->
-                <div id="teacherContainer">
-                    <label>Teacher: <input type="text" name="teacher"></label>
-                </div>
-                <button type="button" onclick="addTeacher()">Add Teacher</button><br><br>
-        
-                <!-- Room Number Section -->
-                <div id="roomContainer">
-                    <label>Room Number: <input type="text" name="room"></label>
-                </div>
-                <button type="button" onclick="addRoom()">Add Room</button><br><br>
-                <br><br>
-                <button onclick="saveCell()">Save</button>
-                <button onclick="closePopup()">Cancel</button>
-            </div>
         </div>
         <div class="table-sun">     
-                <table class="dynamicTable">
+                <table id="dynamicTable-sun" class="dynamicTable">
                     <thead>
                         <tr>
                             <th>Period →</th>
@@ -252,27 +233,27 @@
                     <tbody>
                     </tbody>
                 </table>
-                <table id="routineTable">
+                <table id="routineTable-sun" class="routineTable">
                     <tbody>
-                        <script>
-                            // Create column-wise 2nd and 3rd line duplicate report at the last row
-                            document.write("<tr>");
-                            for (let j = 0; j < 11; j++) {
-                                if(j == 0){
-                                    document.write(`<td class="report-cell" id="colReport${j}">Duplicate <br> Teachers <br> & rooms</td>`);
-                                }else{
-                                    document.write(`<td class="report-cell" id="colReport${j}"></td>`);
-                                }
-                            }
-                            // Extra cell for alignment at last row last column
-                            document.write(`<td class="report-cell" style="display:hidden"></td>`);
-                            document.write("</tr>");
-                        </script>
+                        <tr>
+                            <td class="report-cell" id="colReport-sun-0">Duplicate <br> Teachers <br> & rooms</td>
+                            <td class="report-cell" id="colReport-sun-1"></td>
+                            <td class="report-cell" id="colReport-sun-2"></td>
+                            <td class="report-cell" id="colReport-sun-3"></td>
+                            <td class="report-cell" id="colReport-sun-4"></td>
+                            <td class="report-cell" id="colReport-sun-5"></td>
+                            <td class="report-cell" id="colReport-sun-6"></td>
+                            <td class="report-cell" id="colReport-sun-7"></td>
+                            <td class="report-cell" id="colReport-sun-8"></td>
+                            <td class="report-cell" id="colReport-sun-9"></td>
+                            <td class="report-cell" id="colReport-sun-10"></td>
+                            <td class="report-cell" style="display:hidden"></td>
+                        </tr>
                     </tbody>
                 </table>            
         </div>
         <div class="table-mon">     
-                <table class="dynamicTable">
+                <table id="dynamicTable-mon" class="dynamicTable">
                     <thead>
                         <tr>
                             <th>Period →</th>
@@ -304,27 +285,27 @@
                     <tbody>
                     </tbody>
                 </table>
-                <table id="routineTable">
+                <table id="routineTable-mon" class="routineTable">
                     <tbody>
-                        <script>
-                            // Create column-wise 2nd and 3rd line duplicate report at the last row
-                            document.write("<tr>");
-                            for (let j = 0; j < 11; j++) {
-                                if(j == 0){
-                                    document.write(`<td class="report-cell" id="colReport${j}">Duplicate <br> Teachers <br> & rooms</td>`);
-                                }else{
-                                    document.write(`<td class="report-cell" id="colReport${j}"></td>`);
-                                }
-                            }
-                            // Extra cell for alignment at last row last column
-                            document.write(`<td class="report-cell" style="display:hidden"></td>`);
-                            document.write("</tr>");
-                        </script>
+                        <tr>
+                            <td class="report-cell" id="colReport-mon-0">Duplicate <br> Teachers <br> & rooms</td>
+                            <td class="report-cell" id="colReport-mon-1"></td>
+                            <td class="report-cell" id="colReport-mon-2"></td>
+                            <td class="report-cell" id="colReport-mon-3"></td>
+                            <td class="report-cell" id="colReport-mon-4"></td>
+                            <td class="report-cell" id="colReport-mon-5"></td>
+                            <td class="report-cell" id="colReport-mon-6"></td>
+                            <td class="report-cell" id="colReport-mon-7"></td>
+                            <td class="report-cell" id="colReport-mon-8"></td>
+                            <td class="report-cell" id="colReport-mon-9"></td>
+                            <td class="report-cell" id="colReport-mon-10"></td>
+                            <td class="report-cell" style="display:hidden"></td>
+                        </tr>
                     </tbody>
                 </table>            
         </div>
         <div class="table-tue">     
-                <table class="dynamicTable">
+                <table id="dynamicTable-tue" class="dynamicTable">
                     <thead>
                         <tr>
                             <th>Period →</th>
@@ -349,34 +330,33 @@
                             
                         </tr>
                         <tr>
-                            <td id="highlight">Day →</td>
-                            <td style="justify-content: center" colspan="11"> Tuesday</td>
+                            <td id="highlight">Day →</td><td style="justify-content: center" colspan="11"> Tuesday</td>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
-                <table id="routineTable">
+                <table id="routineTable-tue" class="routineTable">
                     <tbody>
-                        <script>
-                            // Create column-wise 2nd and 3rd line duplicate report at the last row
-                            document.write("<tr>");
-                            for (let j = 0; j < 11; j++) {
-                                if(j == 0){
-                                    document.write(`<td class="report-cell" id="colReport${j}">Duplicate <br> Teachers <br> & rooms</td>`);
-                                }else{
-                                    document.write(`<td class="report-cell" id="colReport${j}"></td>`);
-                                }
-                            }
-                            // Extra cell for alignment at last row last column
-                            document.write(`<td class="report-cell" style="display:hidden"></td>`);
-                            document.write("</tr>");
-                        </script>
+                        <tr>
+                            <td class="report-cell" id="colReport-tue-0">Duplicate <br> Teachers <br> & rooms</td>
+                            <td class="report-cell" id="colReport-tue-1"></td>
+                            <td class="report-cell" id="colReport-tue-2"></td>
+                            <td class="report-cell" id="colReport-tue-3"></td>
+                            <td class="report-cell" id="colReport-tue-4"></td>
+                            <td class="report-cell" id="colReport-tue-5"></td>
+                            <td class="report-cell" id="colReport-tue-6"></td>
+                            <td class="report-cell" id="colReport-tue-7"></td>
+                            <td class="report-cell" id="colReport-tue-8"></td>
+                            <td class="report-cell" id="colReport-tue-9"></td>
+                            <td class="report-cell" id="colReport-tue-10"></td>
+                            <td class="report-cell" style="display:hidden"></td>
+                        </tr>
                     </tbody>
                 </table>            
         </div>
         <div class="table-wed">     
-                <table class="dynamicTable">
+                <table id="dynamicTable-wed" class="dynamicTable">
                     <thead>
                         <tr>
                             <th>Period →</th>
@@ -402,60 +382,58 @@
                         </tr>
                         <tr>
                             <td id="highlight">Day →</td>
-                            <td style="justify-content: center" colspan="11"> Wednsday</td>
+                            <td style="justify-content: center" colspan="11"> Wednesday</td>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
-                <table id="routineTable">
+                <table id="routineTable-wed" class="routineTable">
                     <tbody>
-                        <script>
-                            // Create column-wise 2nd and 3rd line duplicate report at the last row
-                            document.write("<tr>");
-                            for (let j = 0; j < 11; j++) {
-                                if(j == 0){
-                                    document.write(`<td class="report-cell" id="colReport${j}">Duplicate <br> Teachers <br> & rooms</td>`);
-                                }else{
-                                    document.write(`<td class="report-cell" id="colReport${j}"></td>`);
-                                }
-                            }
-                            // Extra cell for alignment at last row last column
-                            document.write(`<td class="report-cell" style="display:hidden"></td>`);
-                            document.write("</tr>");
-                        </script>
+                        <tr>
+                            <td class="report-cell" id="colReport-wed-0">Duplicate <br> Teachers <br> & rooms</td>
+                            <td class="report-cell" id="colReport-wed-1"></td>
+                            <td class="report-cell" id="colReport-wed-2"></td>
+                            <td class="report-cell" id="colReport-wed-3"></td>
+                            <td class="report-cell" id="colReport-wed-4"></td>
+                            <td class="report-cell" id="colReport-wed-5"></td>
+                            <td class="report-cell" id="colReport-wed-6"></td>
+                            <td class="report-cell" id="colReport-wed-7"></td>
+                            <td class="report-cell" id="colReport-wed-8"></td>
+                            <td class="report-cell" id="colReport-wed-9"></td>
+                            <td class="report-cell" id="colReport-wed-10"></td>
+                            <td class="report-cell" style="display:hidden"></td>
+                        </tr>
                     </tbody>
                 </table>            
         </div>
 
 
-            <div id="popup" class="popup">
-                <h3>Edit Cell</h3>
-                <label>Course Code: <input type="text" id="courseCode"</label>
-        
-                <!-- Teacher Section -->
-                <div id="teacherContainer">
-                    <label>Teacher: <input type="text" name="teacher"></label>
-                </div>
-                <button type="button" onclick="addTeacher()">Add Teacher</button><br><br>
-        
-                <!-- Room Number Section -->
-                <div id="roomContainer">
-                    <label>Room Number: <input type="text" name="room"></label>
-                </div>
-                <button type="button" onclick="addRoom()">Add Room</button><br><br>
-                <br><br>
-                <button onclick="saveCell()">Save</button>
-                <button onclick="closePopup()">Cancel</button>
+        <div id="popup" class="popup">
+            <h3>Edit Cell</h3>
+            <label>Course Code: <input type="text" id="courseCode"></label>
+    
+            <!-- Teacher Section -->
+            <div id="teacherContainer">
+                <label>Teacher: <input type="text" name="teacher"></label>
             </div>
+            <button type="button" onclick="addTeacher()">Add Teacher</button><br><br>
+    
+            <!-- Room Number Section -->
+            <div id="roomContainer">
+                <label>Room Number: <input type="text" name="room"></label>
+            </div>
+            <button type="button" onclick="addRoom()">Add Room</button><br><br>
+            <br><br>
+            <button onclick="saveCell()">Save</button>
+            <button onclick="closePopup()">Cancel</button>
         </div>
     </div>
-        
-        
 
     <script>
         let batchCounter = 1;
         let selectedCell;
+        let selectedTable;
 
         function openBatchPopup() {
             document.getElementById("batchPopup").style.display = "block";
@@ -464,53 +442,93 @@
         function closeBatchPopup() {
             document.getElementById("batchPopup").style.display = "none";
         }
+        
         function getLightColor() {
             // Generate R, G, B values in the range (150-255) to ensure a light color
             let r = 255; // 150 to 255
             let g = 255;
-            let b =255;
+            let b = 255;
             return `rgb(${r}, ${g}, ${b})`;
         }
 
         function addRows() {
-            let table = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0];
+            const days = ['sat', 'sun', 'mon', 'tue', 'wed'];
             let year = document.getElementById("year").value;
             let semester = document.getElementById("semester").value;
             let batchName = document.getElementById("batchName").value;
             let sections = ["A section", "B section", "C section"];
-            let rowGroup = [];
             let color = getLightColor();
-            let currentRow_number = table.rows.length + 1;
-            console.log("Number Of Rows: "+currentRow_number);
-            for (let i = 0; i < 3; i++) {
-                let newRow = table.insertRow();
-                rowGroup.push(newRow);
+            
+            days.forEach(day => {
+                let table = document.getElementById(`dynamicTable-${day}`).getElementsByTagName('tbody')[0];
+                let currentRow_number = table.rows.length + 1;
+                let rowGroup = [];
                 
-                for (let j = 0; j < 11; j++) {
-                    let cell = newRow.insertCell(j);
-                    cell.style.backgroundColor = color;
-                    if (j === 0) {
-                        cell.innerHTML = `${year} Year<br>${semester} Semester<br>${sections[i]}<br>(${batchName})`;
-                    }
-                    else if(j === 10)
-                    {
-                        cell.classList.add("report-cell");
-                        cell.setAttribute("id", `rowReport${i + currentRow_number}`);
-                        console.log(`rowReport${i + currentRow_number}`);
-                    }
-                    else {
-                        cell.innerHTML = ``;
-                        cell.onclick = function () { openPopup(this); };
+                for (let i = 0; i < 3; i++) {
+                    let newRow = table.insertRow();
+                    rowGroup.push(newRow);
+                    
+                    for (let j = 0; j < 11; j++) {
+                        let cell = newRow.insertCell(j);
+                        cell.style.backgroundColor = color;
+                        if (j === 0) {
+                            cell.innerHTML = `${year} Year<br>${semester} Semester<br>${sections[i]}<br>(${batchName})`;
+                        }
+                        else if(j === 10) {
+                            cell.classList.add("report-cell");
+                            cell.setAttribute("id", `rowReport-${day}-${i + currentRow_number}`);
+                        }
+                        else {
+                            cell.innerHTML = ``;
+                            cell.onclick = function() { 
+                                openPopup(this);
+                                selectedTable = day;
+                            };
+                        }
                     }
                 }
-            }
-
-            let deleteCell = rowGroup[0].insertCell(11);
-            let deleteButton = document.createElement("button");
-            deleteButton.textContent = "Delete";
-            deleteButton.onclick = function () { deleteRows(rowGroup); };
-            deleteCell.appendChild(deleteButton);
+                
+                // Add delete button to the first row of each batch
+                let deleteCell = rowGroup[0].insertCell(11);
+                let deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.onclick = function() { 
+                    const dayRowGroups = {};
+                    days.forEach(d => {
+                        const tableBody = document.getElementById(`dynamicTable-${d}`).getElementsByTagName('tbody')[0];
+                        const rowIndex = rowGroup[0].rowIndex - 3; // Adjust for header rows
+                        dayRowGroups[d] = [
+                            tableBody.rows[rowIndex],
+                            tableBody.rows[rowIndex + 1],
+                            tableBody.rows[rowIndex + 2]
+                        ];
+                    });
+                    deleteRowsFromAllTables(dayRowGroups);
+                };
+                deleteCell.appendChild(deleteButton);
+            });
+            
             closeBatchPopup();
+        }
+
+        function deleteRowsFromAllTables(dayRowGroups) {
+            let userResponse = confirm("Are you sure you want to delete this batch from all days?");
+            if (userResponse) {
+                for (let day in dayRowGroups) {
+                    dayRowGroups[day].forEach(row => {
+                        if (row) row.remove();
+                    });
+                }
+                alert("Batch deleted successfully from all days!");
+                
+                // Update duplicate checks for all tables
+                const days = ['sat', 'sun', 'mon', 'tue', 'wed'];
+                days.forEach(day => {
+                    checkDuplicates(day);
+                });
+            } else {
+                alert("Delete operation canceled.");
+            }
         }
 
         function openPopup(cell) {
@@ -537,7 +555,6 @@
             } else {
                 addRoom(); // Add one empty room input
             }
-            //document.getElementById("expandCell").checked = selectedCell.hasAttribute("colspan") && selectedCell.getAttribute("colspan") === "3";
         }
 
         function closePopup() {
@@ -570,15 +587,15 @@
             let courseCode = document.getElementById("courseCode").value;
             let teachers = Array.from(document.getElementsByName("teacher")).map(input => input.value).filter(Boolean);
             let rooms = Array.from(document.getElementsByName("room")).map(input => input.value).filter(Boolean);
-            //let expandCell = document.getElementById("expandCell").checked;
-            let lastChar = courseCode.trim().slice(-1); // Get the last character
-            let lastDigit = parseInt(lastChar, 10); // Convert to number
             let row = selectedCell.parentElement;
             let cellIndex = Array.from(row.children).indexOf(selectedCell);
             
+            let lastChar = courseCode.trim().slice(-1); // Get the last character
+            let lastDigit = parseInt(lastChar, 10); // Convert to number
+            
             if (!isNaN(lastDigit)) {
                 if (lastDigit % 2 === 0) {
-                    let lab_positions = [1,4,7];
+                    let lab_positions = [1, 4, 7];
                     if (!lab_positions.includes(cellIndex)) {
                         alert(`Sessional courses are only allowed in 1st, 4th, and 7th periods.`);
                         closePopup();
@@ -588,11 +605,11 @@
                     let next1 = row.children[cellIndex + 1];
                     let next2 = row.children[cellIndex + 2];
 
-                    if (next1){
+                    if (next1) {
                         next1.innerText = `${courseCode},${teachers.join("/")},${rooms.join("/")}`;
                         next1.style.display = "none";
                     }
-                    if (next2){
+                    if (next2) {
                         next2.innerText = `${courseCode},${teachers.join("/")},${rooms.join("/")}`;
                         next2.style.display = "none";
                     }
@@ -601,129 +618,124 @@
                     // Restore hidden cells
                     let next1 = row.children[cellIndex + 1];
                     let next2 = row.children[cellIndex + 2];
-                    if (next1)
-                    {
-                        if(next1.style.display == "none")
-                        {
+                    if (next1) {
+                        if (next1.style.display == "none") {
                             next1.style.display = "table-cell";
                             next1.innerText = "";
                         }
                     }
-                    if (next2)
-                    {
-                        if(next2.style.display == "none")
-                        {
+                    if (next2) {
+                        if (next2.style.display == "none") {
                             next2.style.display = "table-cell";
                             next2.innerText = "";
                         }
                     }
                 }
                 selectedCell.innerText = `${courseCode}\n${teachers.join("/")}\n${rooms.join("/")}`;
-                checkDuplicates();
+                checkDuplicates(selectedTable);
                 closePopup();
-            } else if(!courseCode)
-            {
+            } else if (!courseCode) {
                 selectedCell.setAttribute("colspan", "1");
                 // Restore hidden cells
                 let next1 = row.children[cellIndex + 1];
                 let next2 = row.children[cellIndex + 2];
-                if (next1)
-                {
-                    if(next1.style.display == "none")
-                    {
+                if (next1) {
+                    if (next1.style.display == "none") {
                         next1.style.display = "table-cell";
                         next1.innerText = "";
                     }
                 }
-                if (next2)
-                {
-                    if(next2.style.display == "none")
-                    {
+                if (next2) {
+                    if (next2.style.display == "none") {
                         next2.style.display = "table-cell";
                         next2.innerText = "";
                     }
                 }
                 selectedCell.innerText = "";
-                checkDuplicates();
+                checkDuplicates(selectedTable);
                 closePopup();
-            }
-            else {
+            } else {
                 alert("Invalid course code. Please enter a valid course code.");
-                closePopup()
+                closePopup();
                 return;
             }
         }
 
-        function deleteRows(rows) {
-            let userResponse = confirm("Are you sure you want to delete this item?");
-            if (userResponse) {
-                rows.forEach(row => row.remove());
-                alert("Item deleted successfully!");
-            } else {
-                alert("Delete operation canceled.");
-            }
-        }
-
-        function checkDuplicates() {
-            let colwise_table = document.getElementById("routineTable");
-            let rowwise_table = document.getElementById("dynamicTable");
+        function checkDuplicates(day) {
+            let rowwise_table = document.getElementById(`dynamicTable-${day}`);
             let rows = rowwise_table.rows;
-            let columns = 10;
-            console.log("Duplicate: "+rows.length);
-            for (let i = 1; i < rows.length; i++) {
+            
+            // Check row-wise duplicates (duplicate courses in the same row)
+            for (let i = 3; i < rows.length; i++) { // Start from index 3 to skip header rows
                 let firstLineSet = new Set();
                 let firstLineDuplicates = [];
 
                 for (let j = 1; j < 10; j++) {
-                    if(rows[i].cells[j].style.display == "none")
-                    {
+                    if (rows[i].cells[j] && rows[i].cells[j].style.display == "none") {
                         continue;
                     }
-                    let cellText = rows[i].cells[j].innerText.split("\n");
+                    let cellText = rows[i].cells[j] ? rows[i].cells[j].innerText.split("\n") : [];
                     let firstLine = cellText[0] || "";
 
                     if (firstLine && firstLineSet.has(firstLine)) firstLineDuplicates.push(firstLine);
-                    else firstLineSet.add(firstLine);
+                    else if (firstLine) firstLineSet.add(firstLine);
                 }
-                console.log(`rowReport${i}`);
-                document.getElementById(`rowReport${i}`).innerText = `${[...new Set(firstLineDuplicates)].join(", ")}`;
+                
+                const rowReportId = `rowReport-${day}-${i - 2}`; // Adjust index for header rows
+                const rowReportCell = document.getElementById(rowReportId);
+                if (rowReportCell) {
+                    rowReportCell.innerText = `${[...new Set(firstLineDuplicates)].join(", ")}`;
+                }
             }
 
+            // Check column-wise duplicates (duplicate teachers and rooms in the same time slot)
             for (let j = 1; j < 10; j++) {
                 let secondLineSet = new Set();
                 let thirdLineSet = new Set();
                 let secondLineDuplicates = [];
                 let thirdLineDuplicates = [];
 
-                for (let i = 1; i < rows.length; i++) {
-                    console.log(i+" "+j+" "+rows[i].cells[j].innerText);
-                    let cellText = ""; 
-                    if(rows[i].cells[j].style.display == "none")
-                    {
-                        cellText = rows[i].cells[j].innerText.split(",");
-                    }else{
-                        cellText = rows[i].cells[j].innerText.split("\n");
-                    }  
+                for (let i = 3; i < rows.length; i++) { // Start from index 3 to skip header rows
+                    if (!rows[i].cells[j] || rows[i].cells[j].style.display == "none") {
+                        continue;
+                    }
+                    
+                    let cellText = rows[i].cells[j].innerText.split("\n");
                     let secondLine = cellText[1] || "";
                     let thirdLine = cellText[2] || "";
 
                     if (secondLine) {
                         secondLine.split("/").forEach(teacher => {
-                            if (secondLineSet.has(teacher)) secondLineDuplicates.push(teacher);
-                            else secondLineSet.add(teacher);
+                            teacher = teacher.trim();
+                            if (teacher && secondLineSet.has(teacher)) secondLineDuplicates.push(teacher);
+                            else if (teacher) secondLineSet.add(teacher);
                         });
                     }
+                    
                     if (thirdLine) {
                         thirdLine.split("/").forEach(room => {
-                            if (thirdLineSet.has(room)) thirdLineDuplicates.push(room);
-                            else thirdLineSet.add(room);
+                            room = room.trim();
+                            if (room && thirdLineSet.has(room)) thirdLineDuplicates.push(room);
+                            else if (room) thirdLineSet.add(room);
                         });
                     }
                 }
 
-                document.getElementById(`colReport${j}`).innerText = `T:[${[...new Set(secondLineDuplicates)].join(", ")}]\nR:[${[...new Set(thirdLineDuplicates)].join(", ")}]`;
+                const colReportId = `colReport-${day}-${j}`;
+                const colReportCell = document.getElementById(colReportId);
+                if (colReportCell) {
+                    colReportCell.innerText = `T:[${[...new Set(secondLineDuplicates)].join(", ")}]\nR:[${[...new Set(thirdLineDuplicates)].join(", ")}]`;
+                }
             }
         }
+
+        // Initialize all tables' duplicate checking when the page loads
+        window.onload = function() {
+            const days = ['sat', 'sun', 'mon', 'tue', 'wed'];
+            days.forEach(day => {
+                checkDuplicates(day);
+            });
+        };
     </script>
 </body>
 </html>
