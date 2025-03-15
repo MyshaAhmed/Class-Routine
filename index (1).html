@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Table</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -108,6 +109,7 @@
         .add-batch-div
         {
             display: flex;
+            justify-content: space-between;
             align-items: center;
             margin-top: 50px;
         }
@@ -115,11 +117,110 @@
             background-color: #d0e7d2;
             font-weight: bold;
         }
+
+
+        /* printing:====> */
+        .print-btn {
+            background-color: #2b4d37;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                margin: 0;
+                padding: 0;
+            }
+            .add-batch-div, .popup, .report-cell, button, .no-print {
+                display: none !important;
+            }
+            .table-container {
+                box-shadow: none;
+                padding: 0;
+                margin: 0;
+                overflow: visible !important;
+                page-break-after: always;
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow-x: visible !important;
+            }
+                
+            .dynamicTable {
+                width: 100%;
+                font-size: 10px; /* Make fonts smaller for printing */
+                table-layout: fixed;
+                page-break-inside: avoid;
+                margin: 0 0 30px 0;
+            }
+            table {
+                page-break-inside: avoid;
+                margin-bottom: 20px;
+                table-layout: fixed !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            td, th {
+                padding: 3px 2px;
+                font-size: 10px;
+                word-wrap: break-word;
+                line-height: 1.2;
+                width: 11% !important; /* Each column gets equal width */
+                max-width: 11% !important;
+                overflow: hidden !important;
+                white-space: normal !important;
+                box-sizing: border-box !important;
+                page-break-inside: avoid !important;
+            }
+            
+            td:first-child, th:first-child {
+                width: 12% !important; /* First column slightly wider for batch info */
+            }
+            
+            /* Force specific width for 9th period column */
+            th:nth-child(10), td:nth-child(10) {
+                width: 11% !important;
+                max-width: 11% !important;
+                overflow: hidden !important;
+            }
+            
+            h1 {
+                font-size: 16px;
+                margin: 5px 0;
+            }  
+            .day-heading {
+                page-break-before: always;
+                margin-top: 15px;
+            }  
+            .table-sat h1 {
+                page-break-before: avoid;
+            }
+            /* Ensure each day's table stays together */
+            .table-sat, .table-sun, .table-mon, .table-tue, .table-wed {
+                page-break-inside: avoid;
+                page-break-after: always;
+            }
+            
+            #highlight {
+                background-color: #d0e7d2 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+        
+           
+        
     </style>
 </head>
 <body>
     <div class="add-batch-div">
         <button class="add-batch-btn" onclick="openBatchPopup()">Add Batch</button>
+        <!-- for printing -->
+        <button class="print-btn" onclick="printRoutine()">Print Routine</button> 
     </div>
     <div id="batchPopup" class="popup">
         <h3>Enter Batch Details</h3>
@@ -155,8 +256,8 @@
                             <th>1st </th> <th>2nd</th> <th>3rd </th>
                             <th>4th </th> <th>5th </th> <th>6th </th>
                             <th>7th </th> <th>8th </th> <th>9th </th>
-                            <th>Duplicate Classes</th>
-                            <th>Action</th>
+                            <th class="no-print">Duplicate Classes</th>
+                            <th class="no-print">Action</th>
                         </tr>
                         <tr>
                             <td id="highlight">Time →</td>
@@ -169,7 +270,7 @@
                             <td>2:30 - 3:20 PM</td>
                             <td>3:20 - 4:10 PM</td>
                             <td>4:10 - 5:00 PM</td>
-                            <td colspan="2"></td>
+                            <td class="no-print" colspan="2"></td>
                             
                         </tr>
                         <tr>
@@ -180,7 +281,7 @@
                     <tbody>
                     </tbody>
                 </table>
-                <table id="routineTable-sat" class="routineTable">
+                <table id="routineTable-sat" class="routineTable no-print">
                     <tbody>
                         <tr>
                             <td class="report-cell" id="colReport-sat-0">Duplicate <br> Teachers <br> & rooms</td>
@@ -208,8 +309,8 @@
                             <th>1st </th> <th>2nd</th> <th>3rd </th>
                             <th>4th </th> <th>5th </th> <th>6th </th>
                             <th>7th </th> <th>8th </th> <th>9th </th>
-                            <th>Duplicate Classes</th>
-                            <th>Action</th>
+                            <th class="no-print">Duplicate Classes</th>
+                            <th class="no-print">Action</th>
                         </tr>
                         <tr>
                             <td id="highlight">Time →</td>
@@ -222,7 +323,7 @@
                             <td>2:30 - 3:20 PM</td>
                             <td>3:20 - 4:10 PM</td>
                             <td>4:10 - 5:00 PM</td>
-                            <td colspan="2"></td>
+                            <td class="no-print" colspan="2"></td>
                             
                         </tr>
                         <tr>
@@ -233,7 +334,7 @@
                     <tbody>
                     </tbody>
                 </table>
-                <table id="routineTable-sun" class="routineTable">
+                <table id="routineTable-sun" class="routineTable no-print">
                     <tbody>
                         <tr>
                             <td class="report-cell" id="colReport-sun-0">Duplicate <br> Teachers <br> & rooms</td>
@@ -260,8 +361,8 @@
                             <th>1st </th> <th>2nd</th> <th>3rd </th>
                             <th>4th </th> <th>5th </th> <th>6th </th>
                             <th>7th </th> <th>8th </th> <th>9th </th>
-                            <th>Duplicate Classes</th>
-                            <th>Action</th>
+                            <th class="no-print">Duplicate Classes</th>
+                            <th class="no-print">Action</th>
                         </tr>
                         <tr>
                             <td id="highlight">Time →</td>
@@ -274,7 +375,7 @@
                             <td>2:30 - 3:20 PM</td>
                             <td>3:20 - 4:10 PM</td>
                             <td>4:10 - 5:00 PM</td>
-                            <td colspan="2"></td>
+                            <td class="no-print" colspan="2"></td>
                             
                         </tr>
                         <tr>
@@ -285,7 +386,7 @@
                     <tbody>
                     </tbody>
                 </table>
-                <table id="routineTable-mon" class="routineTable">
+                <table id="routineTable-mon" class="routineTable no-print">
                     <tbody>
                         <tr>
                             <td class="report-cell" id="colReport-mon-0">Duplicate <br> Teachers <br> & rooms</td>
@@ -312,8 +413,8 @@
                             <th>1st </th> <th>2nd</th> <th>3rd </th>
                             <th>4th </th> <th>5th </th> <th>6th </th>
                             <th>7th </th> <th>8th </th> <th>9th </th>
-                            <th>Duplicate Classes</th>
-                            <th>Action</th>
+                            <th class="no-print">Duplicate Classes</th>
+                            <th class="no-print">Action</th>
                         </tr>
                         <tr>
                             <td id="highlight">Time →</td>
@@ -326,7 +427,7 @@
                             <td>2:30 - 3:20 PM</td>
                             <td>3:20 - 4:10 PM</td>
                             <td>4:10 - 5:00 PM</td>
-                            <td colspan="2"></td>
+                            <td class="no-print" colspan="2"></td>
                             
                         </tr>
                         <tr>
@@ -336,7 +437,7 @@
                     <tbody>
                     </tbody>
                 </table>
-                <table id="routineTable-tue" class="routineTable">
+                <table id="routineTable-tue" class="routineTable no-print">
                     <tbody>
                         <tr>
                             <td class="report-cell" id="colReport-tue-0">Duplicate <br> Teachers <br> & rooms</td>
@@ -363,8 +464,8 @@
                             <th>1st </th> <th>2nd</th> <th>3rd </th>
                             <th>4th </th> <th>5th </th> <th>6th </th>
                             <th>7th </th> <th>8th </th> <th>9th </th>
-                            <th>Duplicate Classes</th>
-                            <th>Action</th>
+                            <th class="no-print">Duplicate Classes</th>
+                            <th class="no-print">Action</th>
                         </tr>
                         <tr>
                             <td id="highlight">Time →</td>
@@ -377,7 +478,7 @@
                             <td>2:30 - 3:20 PM</td>
                             <td>3:20 - 4:10 PM</td>
                             <td>4:10 - 5:00 PM</td>
-                            <td colspan="2"></td>
+                            <td class="no-print" colspan="2"></td>
                             
                         </tr>
                         <tr>
@@ -388,7 +489,7 @@
                     <tbody>
                     </tbody>
                 </table>
-                <table id="routineTable-wed" class="routineTable">
+                <table id="routineTable-wed" class="routineTable no-print">
                     <tbody>
                         <tr>
                             <td class="report-cell" id="colReport-wed-0">Duplicate <br> Teachers <br> & rooms</td>
@@ -451,6 +552,55 @@
             return `rgb(${r}, ${g}, ${b})`;
         }
 
+
+        // Add this function to sort the table rows by year seniority
+        function sortTableBySeniority(day) {
+            let table = document.getElementById(`dynamicTable-${day}`);
+            let tbody = table.getElementsByTagName('tbody')[0];
+            let rows = Array.from(tbody.rows);
+            
+            // Group rows by batch (each batch has 3 rows)
+            let batches = [];
+            for (let i = 0; i < rows.length; i += 3) {
+                if (i + 2 < rows.length) {  // Ensure we have a complete batch
+                    batches.push([rows[i], rows[i+1], rows[i+2]]);
+                }
+            }
+            
+            // Sort batches by year seniority
+            batches.sort((a, b) => {
+                // Extract year from the first cell of first row in batch
+                let yearA = a[0].cells[0].innerText.split('\n')[0].split(' ')[0];
+                let yearB = b[0].cells[0].innerText.split('\n')[0].split(' ')[0];
+                
+                // Convert year text to numeric value for sorting (4th = 4, 3rd = 3, etc.)
+                let getYearValue = (yearText) => {
+                    if (yearText === '4th') return 4;
+                    if (yearText === '3rd') return 3;
+                    if (yearText === '2nd') return 2;
+                    if (yearText === '1st') return 1;
+                    return 0;  // Default case
+                };
+                
+                // Sort in descending order (higher year number = more senior)
+                return getYearValue(yearB) - getYearValue(yearA);
+            });
+            
+            // Clear tbody and re-add rows in sorted order
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
+            
+            batches.forEach(batch => {
+                batch.forEach(row => {
+                    tbody.appendChild(row);
+                });
+            });
+            
+            // Update row reports after sorting
+            checkDuplicates(day);
+        }
+        // Modify the addRows function to call sortTableBySeniority after adding rows
         function addRows() {
             const days = ['sat', 'sun', 'mon', 'tue', 'wed'];
             let year = document.getElementById("year").value;
@@ -506,6 +656,9 @@
                     deleteRowsFromAllTables(dayRowGroups);
                 };
                 deleteCell.appendChild(deleteButton);
+                
+                // Sort table by year seniority after adding new batch
+                sortTableBySeniority(day);
             });
             
             closeBatchPopup();
@@ -581,6 +734,49 @@
             button.parentElement.remove();
         }
 
+        // Add this helper function to check teacher's classes in a day by section
+        function getTeacherPeriodsInSection(day, teacherName, rowIndex) {
+            let table = document.getElementById(`dynamicTable-${day}`);
+            let row = table.rows[rowIndex];
+            let periods = [];
+            
+            for (let j = 1; j < 10; j++) {
+                if (row.cells[j] && row.cells[j].style.display !== "none") {
+                    let cellText = row.cells[j].innerText.split("\n");
+                    let teachers = cellText[1] ? cellText[1].split("/") : [];
+                    
+                    teachers = teachers.map(t => t.trim());
+                    if (teachers.includes(teacherName)) {
+                        periods.push(j);
+                    }
+                }
+            }
+            
+            return periods.sort((a, b) => a - b);
+        }
+
+        // Function to check if a teacher is already teaching in another section at the same time
+        function isTeacherBusy(day, teacherName, period, currentRowIndex) {
+            let table = document.getElementById(`dynamicTable-${day}`);
+            let rows = table.rows;
+            
+            for (let i = 3; i < rows.length; i++) {
+                // Skip current row
+                if (i === currentRowIndex) continue;
+                
+                if (rows[i].cells[period] && rows[i].cells[period].style.display !== "none") {
+                    let cellText = rows[i].cells[period].innerText.split("\n");
+                    let teachers = cellText[1] ? cellText[1].split("/") : [];
+                    
+                    teachers = teachers.map(t => t.trim());
+                    if (teachers.includes(teacherName)) {
+                        return true; // Teacher is busy in another section at this time
+                    }
+                }
+            }
+            
+            return false;
+        }
         function saveCell() {
             if (!selectedCell) return;
 
@@ -588,8 +784,66 @@
             let teachers = Array.from(document.getElementsByName("teacher")).map(input => input.value).filter(Boolean);
             let rooms = Array.from(document.getElementsByName("room")).map(input => input.value).filter(Boolean);
             let row = selectedCell.parentElement;
+            let currentRowIndex = row.rowIndex;
             let cellIndex = Array.from(row.children).indexOf(selectedCell);
             
+            // Get current cell index (period)
+            let currentPeriod = cellIndex;
+            
+            // Check teacher constraints
+            let teacherViolations = [];
+            
+            for (let teacher of teachers) {
+                if (!teacher.trim()) continue;
+                
+                // Check if teacher is already teaching in another section at the same time
+                if (isTeacherBusy(selectedTable, teacher.trim(), currentPeriod, currentRowIndex)) {
+                    teacherViolations.push(`${teacher} is already teaching in another section at this time.`);
+                    continue;
+                }
+                
+                // Check teacher's classes in the current section
+                let teacherPeriods = getTeacherPeriodsInSection(selectedTable, teacher.trim(), currentRowIndex);
+                
+                // Remove current period if it's already in the list (for edit case)
+                teacherPeriods = teacherPeriods.filter(p => p !== currentPeriod);
+                
+                // Add the new period
+                teacherPeriods.push(currentPeriod);
+                teacherPeriods.sort((a, b) => a - b);
+                
+                // If teacher has more than 2 classes in this section
+                if (teacherPeriods.length > 2) {
+                    teacherViolations.push(`${teacher} can teach at most 2 classes in the same section.`);
+                    continue;
+                }
+                
+                // Check if 2 classes in the same section are not adjacent
+                if (teacherPeriods.length === 2 && Math.abs(teacherPeriods[0] - teacherPeriods[1]) !== 1) {
+                    teacherViolations.push(`${teacher}'s classes in this section must be in adjacent periods. Current periods: ${teacherPeriods.map(p => p).join(", ")}`);
+                }
+            }
+            
+            // If there are violations, show alert and update the duplicate report
+            if (teacherViolations.length > 0) {
+                alert("Teacher constraint violations:\n" + teacherViolations.join("\n"));
+                
+                // Update the duplicate report cell
+                const colReportId = `colReport-${selectedTable}-${currentPeriod}`;
+                const colReportCell = document.getElementById(colReportId);
+                if (colReportCell) {
+                    let currentText = colReportCell.innerText;
+                    let parts = currentText.split("\n");
+                    colReportCell.innerText = `${parts[0]}\n${parts[1]}\nViolations: ${teacherViolations.join("; ")}`;
+                }
+                
+                closePopup();
+                return;
+            }
+            
+
+        // Continue with the original saveCell logic
+
             let lastChar = courseCode.trim().slice(-1); // Get the last character
             let lastDigit = parseInt(lastChar, 10); // Convert to number
             
@@ -736,6 +990,50 @@
                 checkDuplicates(day);
             });
         };
+
+        // print routine-------------------->:
+        function printRoutine() {
+            // Hide elements we don't want in the PDF
+            const elementsToHide = document.querySelectorAll('.no-print');
+            elementsToHide.forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Add day headings for better print layout
+            const days = ['sat', 'sun', 'mon', 'tue', 'wed'];
+            days.forEach((day, index) => {
+                if (index > 0) { // Skip the first one as it already has proper spacing
+                    const tableDiv = document.querySelector(`.table-${day}`);
+                    const h1 = tableDiv.querySelector('h1') || document.createElement('h1');
+                    if (!h1.parentElement) {
+                        h1.textContent = `Class Routine - ${day.charAt(0).toUpperCase() + day.slice(1)}day`;
+                        h1.className = 'day-heading';
+                        tableDiv.insertBefore(h1, tableDiv.firstChild);
+                    } else {
+                        h1.className = 'day-heading';
+                    }
+                }
+            });
+            
+            // Use window.print() instead of html2pdf for better control
+            window.print();
+            
+            // Restore visibility after printing
+            elementsToHide.forEach(el => {
+                el.style.display = '';
+            });
+            
+            // Clean up day headings after printing (optional)
+            days.forEach((day, index) => {
+                if (index > 0) {
+                    const tableDiv = document.querySelector(`.table-${day}`);
+                    const h1 = tableDiv.querySelector('.day-heading');
+                    if (h1 && h1 !== tableDiv.querySelector('div h1')) {
+                        h1.remove();
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>
