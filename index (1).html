@@ -221,6 +221,8 @@
         <button class="add-batch-btn" onclick="openBatchPopup()">Add Batch</button>
         <!-- for printing -->
         <button class="print-btn" onclick="printRoutine()">Print Routine</button> 
+        <!-- download pdf -->
+        <button class="print-btn" onclick="downloadPDF()">Download PDF</button>
     </div>
     <div id="batchPopup" class="popup">
         <h3>Enter Batch Details</h3>
@@ -242,13 +244,17 @@
         <button onclick="addRows()">Add</button>
         <button onclick="closeBatchPopup()">Cancel</button>
     </div>
+
+    <div style="text-align: center;" >
+        <h5>Rajshahi University of Engineering & Technology </h5>
+        <h6>Department of Computer Science & Engineering</h6>
+    </div>
     
     <div class="table-container">
         <div class="table-sat">
-            <div style="display: flex;
-            justify-content: center;
-            align-items: center;"><h1>Class Routine</h1></div>
-            <div>
+            <div style="display: flex; justify-content: center;align-items: center;">
+                <h1>Class Routine</h1>
+            </div>
                 <table id="dynamicTable-sat" class="dynamicTable">
                     <thead>
                         <tr>
@@ -1032,6 +1038,34 @@
                         h1.remove();
                     }
                 }
+            });
+        }
+
+        // Download pdf==================>
+        function downloadPDF() {
+            // Hide elements we don't want in the PDF
+            const elementsToHide = document.querySelectorAll('.no-print');
+            elementsToHide.forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Configure PDF options
+            const element = document.querySelector('.table-container');
+            const opt = {
+                margin: [5, 5, 5, 5], // [top, right, bottom, left] in mm
+                filename: 'class-routine.pdf',
+                image: { type: 'jpeg', quality: 0.95 },
+                html2canvas: { scale: 2, letterRendering: true, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a3', orientation: 'landscape' },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+            
+            // Generate and download PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restore visibility of hidden elements after PDF generation
+                elementsToHide.forEach(el => {
+                    el.style.display = '';
+                });
             });
         }
     </script>
