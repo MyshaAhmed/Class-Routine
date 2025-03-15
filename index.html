@@ -451,6 +451,55 @@
             return `rgb(${r}, ${g}, ${b})`;
         }
 
+
+        // Add this function to sort the table rows by year seniority
+        function sortTableBySeniority(day) {
+            let table = document.getElementById(`dynamicTable-${day}`);
+            let tbody = table.getElementsByTagName('tbody')[0];
+            let rows = Array.from(tbody.rows);
+            
+            // Group rows by batch (each batch has 3 rows)
+            let batches = [];
+            for (let i = 0; i < rows.length; i += 3) {
+                if (i + 2 < rows.length) {  // Ensure we have a complete batch
+                    batches.push([rows[i], rows[i+1], rows[i+2]]);
+                }
+            }
+            
+            // Sort batches by year seniority
+            batches.sort((a, b) => {
+                // Extract year from the first cell of first row in batch
+                let yearA = a[0].cells[0].innerText.split('\n')[0].split(' ')[0];
+                let yearB = b[0].cells[0].innerText.split('\n')[0].split(' ')[0];
+                
+                // Convert year text to numeric value for sorting (4th = 4, 3rd = 3, etc.)
+                let getYearValue = (yearText) => {
+                    if (yearText === '4th') return 4;
+                    if (yearText === '3rd') return 3;
+                    if (yearText === '2nd') return 2;
+                    if (yearText === '1st') return 1;
+                    return 0;  // Default case
+                };
+                
+                // Sort in descending order (higher year number = more senior)
+                return getYearValue(yearB) - getYearValue(yearA);
+            });
+            
+            // Clear tbody and re-add rows in sorted order
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
+            
+            batches.forEach(batch => {
+                batch.forEach(row => {
+                    tbody.appendChild(row);
+                });
+            });
+            
+            // Update row reports after sorting
+            checkDuplicates(day);
+        }
+        // Modify the addRows function to call sortTableBySeniority after adding rows
         function addRows() {
             const days = ['sat', 'sun', 'mon', 'tue', 'wed'];
             let year = document.getElementById("year").value;
@@ -506,6 +555,9 @@
                     deleteRowsFromAllTables(dayRowGroups);
                 };
                 deleteCell.appendChild(deleteButton);
+                
+                // Sort table by year seniority after adding new batch
+                sortTableBySeniority(day);
             });
             
             closeBatchPopup();
@@ -581,6 +633,49 @@
             button.parentElement.remove();
         }
 
+        // Add this helper function to check teacher's classes in a day by section
+        function getTeacherPeriodsInSection(day, teacherName, rowIndex) {
+            let table = document.getElementById(`dynamicTable-${day}`);
+            let row = table.rows[rowIndex];
+            let periods = [];
+            
+            for (let j = 1; j < 10; j++) {
+                if (row.cells[j] && row.cells[j].style.display !== "none") {
+                    let cellText = row.cells[j].innerText.split("\n");
+                    let teachers = cellText[1] ? cellText[1].split("/") : [];
+                    
+                    teachers = teachers.map(t => t.trim());
+                    if (teachers.includes(teacherName)) {
+                        periods.push(j);
+                    }
+                }
+            }
+            
+            return periods.sort((a, b) => a - b);
+        }
+
+        // Function to check if a teacher is already teaching in another section at the same time
+        function isTeacherBusy(day, teacherName, period, currentRowIndex) {
+            let table = document.getElementById(`dynamicTable-${day}`);
+            let rows = table.rows;
+            
+            for (let i = 3; i < rows.length; i++) {
+                // Skip current row
+                if (i === currentRowIndex) continue;
+                
+                if (rows[i].cells[period] && rows[i].cells[period].style.display !== "none") {
+                    let cellText = rows[i].cells[period].innerText.split("\n");
+                    let teachers = cellText[1] ? cellText[1].split("/") : [];
+                    
+                    teachers = teachers.map(t => t.trim());
+                    if (teachers.includes(teacherName)) {
+                        return true; // Teacher is busy in another section at this time
+                    }
+                }
+            }
+            
+            return false;
+        }
         function saveCell() {
             if (!selectedCell) return;
 
@@ -588,8 +683,66 @@
             let teachers = Array.from(document.getElementsByName("teacher")).map(input => input.value).filter(Boolean);
             let rooms = Array.from(document.getElementsByName("room")).map(input => input.value).filter(Boolean);
             let row = selectedCell.parentElement;
+            let currentRowIndex = row.rowIndex;
             let cellIndex = Array.from(row.children).indexOf(selectedCell);
             
+            // Get current cell index (period)
+            let currentPeriod = cellIndex;
+            
+            // Check teacher constraints
+            let teacherViolations = [];
+            
+            for (let teacher of teachers) {
+                if (!teacher.trim()) continue;
+                
+                // Check if teacher is already teaching in another section at the same time
+                if (isTeacherBusy(selectedTable, teacher.trim(), currentPeriod, currentRowIndex)) {
+                    teacherViolations.push(`${teacher} is already teaching in another section at this time.`);
+                    continue;
+                }
+                
+                // Check teacher's classes in the current section
+                let teacherPeriods = getTeacherPeriodsInSection(selectedTable, teacher.trim(), currentRowIndex);
+                
+                // Remove current period if it's already in the list (for edit case)
+                teacherPeriods = teacherPeriods.filter(p => p !== currentPeriod);
+                
+                // Add the new period
+                teacherPeriods.push(currentPeriod);
+                teacherPeriods.sort((a, b) => a - b);
+                
+                // If teacher has more than 2 classes in this section
+                if (teacherPeriods.length > 2) {
+                    teacherViolations.push(`${teacher} can teach at most 2 classes in the same section.`);
+                    continue;
+                }
+                
+                // Check if 2 classes in the same section are not adjacent
+                if (teacherPeriods.length === 2 && Math.abs(teacherPeriods[0] - teacherPeriods[1]) !== 1) {
+                    teacherViolations.push(`${teacher}'s classes in this section must be in adjacent periods. Current periods: ${teacherPeriods.map(p => p).join(", ")}`);
+                }
+            }
+            
+            // If there are violations, show alert and update the duplicate report
+            if (teacherViolations.length > 0) {
+                alert("Teacher constraint violations:\n" + teacherViolations.join("\n"));
+                
+                // Update the duplicate report cell
+                const colReportId = `colReport-${selectedTable}-${currentPeriod}`;
+                const colReportCell = document.getElementById(colReportId);
+                if (colReportCell) {
+                    let currentText = colReportCell.innerText;
+                    let parts = currentText.split("\n");
+                    colReportCell.innerText = `${parts[0]}\n${parts[1]}\nViolations: ${teacherViolations.join("; ")}`;
+                }
+                
+                closePopup();
+                return;
+            }
+            
+
+        // Continue with the original saveCell logic
+
             let lastChar = courseCode.trim().slice(-1); // Get the last character
             let lastDigit = parseInt(lastChar, 10); // Convert to number
             
